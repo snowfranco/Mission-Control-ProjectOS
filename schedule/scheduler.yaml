@@ -53,3 +53,18 @@ triggers:
     cron: "0 7 * * *"
     enabled: true
     task: "Post the operator's morning brief to Telegram."
+
+  # Enabled by the operator 2026-08-12 (reader-loop build prompt): editions
+  # Tuesday and Friday 07:00, outbox sweep hourly. Flip enabled: false to
+  # pause either one.
+  - id: manifold_edition
+    agent: manifold
+    cron: "0 7 * * 2,5"
+    enabled: true
+    task: "Run the Superlearn editorial pass (Tuesday and Friday edition): cd agents/manifold && npm run edition. Writes one gated edition plus themes to Supabase; report to reports/manifold/."
+
+  - id: manifold_outbox_sweep
+    agent: manifold
+    cron: "0 * * * *"
+    enabled: true
+    task: "Route the Superlearn outbox: cd agents/manifold && npm run outbox. Applies parks, notes, reading signals, and theme assignments; routes decisions and handoffs into queues/."
