@@ -61,6 +61,7 @@
   --color-agent-cardioid: var(--agent-cardioid);
   --color-agent-mobius: var(--agent-mobius);
   --color-agent-parabola: var(--agent-parabola);
+  --color-agent-manifold: var(--agent-manifold);
 }
 
 /*
@@ -82,6 +83,7 @@
   --agent-cardioid: #f1729b;
   --agent-mobius: #e0a63f;
   --agent-parabola: #ee8757;
+  --agent-manifold: #a9cf6f;
 
   --background: var(--field);
   --foreground: #e9edf7;

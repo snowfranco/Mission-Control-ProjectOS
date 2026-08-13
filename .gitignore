@@ -21,8 +21,9 @@ venv/
 .AppleDouble
 .LSOverride
 
-# Env and secrets
+# Env and secrets (.env.example is the documented interface and ships)
 .env*
+!.env.example
 
 # Logs
 *.log

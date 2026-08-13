@@ -7,7 +7,7 @@ Tag legend: [HU] human-owned (provided or confirmed by the operator), [AI] autho
 ## Purpose
 
 - [HU] This repo is the Mission Control substrate: the portfolio registry (registry/), the agent overlays (agents/), the scheduler config (schedule/scheduler.yaml), and the inter-agent queues (queues/).
-- [HU] It is the operator's cockpit for a portfolio of zero-to-one AI bets, run by a 9-agent crew (agents/_master_brief.md). The crew runs on OpenClaw: operator-stated, see Stack. The master brief does not name the runtime.
+- [HU] It is the operator's cockpit for a portfolio of zero-to-one AI bets, run by a 10-agent crew (agents/_master_brief.md; manifold joined 2026-08-05, DECISIONS.md). The crew runs on OpenClaw: operator-stated, see Stack. The master brief does not name the runtime.
 - [HU] This repo is canonical for portfolio-level state. Individual project repos remain canonical for their own state via their ProjectOS files (agents/_master_brief.md).
 - [HU] North star: $5,000 MRR from an AI-powered product by end of 2026. Operator: Snow. Timezone: America/Toronto (agents/_master_brief.md).
 

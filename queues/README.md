@@ -1,6 +1,6 @@
 # Queues
 
-- [AI] queues/decisions.jsonl and queues/handoffs.jsonl are append-only JSONL logs written by Sphere (agents/sphere/OVERLAY.md).
+- [AI] queues/decisions.jsonl and queues/handoffs.jsonl are append-only JSONL logs written by Sphere (agents/sphere/OVERLAY.md) and by manifold's outbox router (agents/manifold/OVERLAY.md, src/queues.ts).
 - [AI] Both files ship truly empty. Comments are not valid JSONL, so the line schemas live here instead of in the files (DECISIONS.md, 2026-07-23).
 - [AI] One JSON object per line. Records are append-only: a state change appends a new line carrying the same id with updated fields, nothing is edited in place.
 
@@ -13,7 +13,7 @@
       "id": "dq-YYYYMMDD-NNN",
       "ts": "ISO-8601 timestamp with America/Toronto offset",
       "kind": "route_to_prism | prism_verdict | spec_review | watchtower_diff | watchtower_merge | ship_gate | publish_gate | other",
-      "agent": "which agent produced the artifact: torus | prism | icosa | helix | klein | cardioid | mobius | parabola",
+      "agent": "which agent produced the artifact: torus | prism | icosa | helix | klein | cardioid | mobius | parabola | manifold",
       "subject": "one line: what is being decided",
       "artifact": "repo-relative path or URL to the card/memo/spec/audit/draft",
       "options": ["go", "no_go", "park", "revise"],
@@ -30,7 +30,7 @@
     {
       "id": "ho-YYYYMMDD-NNN",
       "ts": "ISO-8601 timestamp with America/Toronto offset",
-      "from": "sphere | torus | prism | icosa | helix | klein | cardioid | mobius | parabola | operator",
+      "from": "sphere | torus | prism | icosa | helix | klein | cardioid | mobius | parabola | manifold | operator",
       "to": "the agent receiving the task",
       "task": "one line: what the receiving agent must do",
       "context": ["repo-relative paths or URLs the receiver needs"],

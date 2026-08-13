@@ -14,6 +14,7 @@ export const AGENT_SLUGS = [
   "cardioid",
   "mobius",
   "parabola",
+  "manifold",
 ] as const;
 
 export type AgentSlug = (typeof AGENT_SLUGS)[number];
@@ -92,6 +93,13 @@ export const AGENTS: Record<AgentSlug, AgentMeta> = {
     role: "Signals",
     color: "#ee8757",
     cssVar: "var(--agent-parabola)",
+  },
+  manifold: {
+    slug: "manifold",
+    name: "manifold",
+    role: "Editor",
+    color: "#a9cf6f",
+    cssVar: "var(--agent-manifold)",
   },
 };
 

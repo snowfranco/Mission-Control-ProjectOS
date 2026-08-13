@@ -21,7 +21,8 @@ Canonical rules file. CLAUDE.md is a symlink to this file. Kept lean on purpose:
 ## Pointers
 
 - [AI] Master brief, prepended to every agent's system prompt: agents/_master_brief.md
-- [AI] Per-agent behavior contracts: agents/<shape>/OVERLAY.md (sphere, torus, prism, icosa, helix, klein, cardioid, mobius, parabola)
+- [AI] Per-agent behavior contracts: agents/<shape>/OVERLAY.md (sphere, torus, prism, icosa, helix, klein, cardioid, mobius, parabola, manifold)
+- [AI] manifold is the one agent with runnable code: agents/manifold/ (editorial pass, outbox router, evals harness). Run and env docs: agents/manifold/README.md
 - [AI] Per-agent identity values, operator fills the [GAP]s: agents/<shape>/IDENTITY.md
 - [AI] Portfolio state: registry/portfolio.yaml (slots), registry/projects.yaml (every project ever, including parked and killed)
 - [AI] Scheduler: schedule/scheduler.yaml, all triggers disabled until the operator enables them

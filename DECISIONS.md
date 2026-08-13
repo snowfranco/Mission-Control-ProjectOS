@@ -1,10 +1,20 @@
 # DECISIONS: mission-control
 
-Last updated: 2026-07-31
+Last updated: 2026-08-05
 
 Tag legend: [HU] human-owned, [AI] authored by the assistant, [INFERRED] assistant default. ADR format: Context (what forced the choice), Decision (what was chosen), Consequence (what we now live with). Newest first. Supersede, never delete.
 
 ## Decisions Log (newest first)
+
+### [2026-08-05] [HU] manifold joins the crew as agent 10, the Superlearn editor
+Context: The operator commissioned manifold: Superlearn (the operator's learning cockpit, a separate app repo) renders editions and a theme map from Supabase but had no editor writing them; the app sat in its seed state. The crew was nine agents, all pure-prompt overlays with no runnable code in this repo.
+Decision: manifold lives at agents/manifold/ with the standard OVERLAY.md and IDENTITY.md plus runnable code (editorial pass, outbox router, evals harness), evals-driven from the first output. The Superlearn repo's src/types.ts and src/schemas.ts are the output contract, vendored at a pinned commit; every write must round-trip the app's own reader schemas. A deterministic gate (schema, groundedness, horizon presence, no-shame, Superlearn-never-a-node) blocks any write that fails; failures are logged to reports/manifold/ and never written. Two scheduler triggers ship disabled per house rule. Superlearn is tracked in registry/projects.yaml but takes no portfolio slot (the five slots are full; displacement is the operator's call).
+Consequence: The crew is ten; the master brief, overlays, queues/README.md enums, scheduler, and dashboard roster all say so in the same turn. Mission Control now contains agent runtime code, which the README acknowledges. Secrets move formally to the repo-root .env with .env.example as the documented interface. Contract drift against Superlearn becomes a flagged, gated event instead of a silent adaptation.
+
+### [2026-08-05] [AI] manifold's writer schemas are stricter than the app's reader schemas, and both must pass
+Context: Superlearn's schemas.ts is reader-side and forgiving by design (.catch() and .default() salvage) so a bad row degrades instead of crashing the app. A writer validating only against those schemas could ship rows that render solely thanks to salvage: silent contract drift.
+Decision: manifold validates every row twice: strict writer schemas in agents/manifold/src/contract.ts, then a round-trip through the vendored reader schemas where any salvage rewrite counts as failure.
+Consequence: Some rows the app would tolerate are rejected at the gate. That is the point: the reader's forgiveness stays a safety net for the reader, not a loophole for the writer.
 
 ### [2026-07-31] [AI] Deck generation added as shared capability; pptx skill installed
 

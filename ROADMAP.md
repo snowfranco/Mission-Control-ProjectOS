@@ -1,6 +1,6 @@
 # ROADMAP: mission-control
 
-Last updated: 2026-07-24
+Last updated: 2026-08-05
 
 Tag legend: [HU] human-owned, [AI] authored by the assistant from the repo, [INFERRED] assistant default. Status vocabulary: ✅ shipped, 🔄 in progress, ⏳ next, 💡 planned, 🅿️ parked.
 
@@ -13,6 +13,7 @@ Tag legend: [HU] human-owned, [AI] authored by the assistant from the repo, [INF
 | 2 | Dashboard UI on localhost | ✅ shipped | 2026-07-24 |
 | 3 | Notion mirror by Möbius | 💡 planned | - |
 | 4 | Discord HITL channel | 💡 planned | - |
+| 5 | manifold: Superlearn editor agent plus evals harness | ✅ shipped | 2026-08-05 |
 
 ## Next session
 
@@ -56,3 +57,10 @@ Tag legend: [HU] human-owned, [AI] authored by the assistant from the repo, [INF
 
 - [HU] Discord joins or replaces Telegram as the HITL channel (agents/_master_brief.md).
 - [AI] Until then, every HITL gate fires via Telegram. [GAP] on server, channel, and bot details.
+
+### Phase 5: manifold, the Superlearn editor (✅ shipped 2026-08-05)
+
+- [HU] Build manifold, the agent that reads reading_items plus context from the Superlearn Supabase and writes real editions and themes, with an evals harness from the first output.
+- [AI] What was built: agents/manifold/ with OVERLAY.md and IDENTITY.md per house pattern, the Slice A editorial pass (one Claude call, deterministic post-processing, hard write gate), the Slice B outbox router into queues/, and evals/ (rubric, four hand-built fixtures, runner with LLM judge, golden floors). The Superlearn repo's contract is vendored at a pinned commit (agents/manifold/src/vendor/superlearn/VENDOR.md); every write round-trips the app's own reader schemas.
+- [AI] Registration: master brief roster (ten agents), queues/README.md enums, two disabled scheduler triggers, superlearn row in registry/projects.yaml (no slot), dashboard roster and glyph, .env.example secrets doc (DECISIONS.md 2026-08-05).
+- [AI] Unlocks: the Superlearn cockpit leaves its seed state and renders manifold's real editions; the reader's outbox flows back into Mission Control queues.

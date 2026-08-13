@@ -1,0 +1,20 @@
+{
+  "name": "manifold",
+  "private": true,
+  "version": "0.1.0",
+  "description": "manifold: the Superlearn editor agent. Reads reading_items and context from Supabase, writes editions, themes, and theme_links, gated by schema and groundedness checks.",
+  "type": "module",
+  "engines": {
+    "node": ">=23.6"
+  },
+  "scripts": {
+    "edition": "node src/cli.ts edition",
+    "edition:dry": "node src/cli.ts edition --dry-run",
+    "outbox": "node src/cli.ts outbox",
+    "outbox:dry": "node src/cli.ts outbox --dry-run",
+    "evals": "node evals/runner.ts"
+  },
+  "dependencies": {
+    "zod": "^3.25.0"
+  }
+}

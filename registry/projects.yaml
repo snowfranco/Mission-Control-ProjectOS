@@ -140,6 +140,26 @@ projects:
     started: "2026-07-23T18:01:57-04:00"  # [AI] first commit
     keywords: [portfolio management, agent orchestration, openclaw, projectos, yaml registry, jsonl queues, scheduler, hitl, markdown]
 
+  # --- superlearn --------------------------------------------------------
+  # [AI] Added 2026-08-05 when manifold (the Superlearn editor agent) joined
+  # the crew (agents/manifold/OVERLAY.md; DECISIONS.md 2026-08-05). The repo
+  # was recently renamed from News-Papele; its GitHub description still
+  # carries the legacy feed-reader framing. The app renders editions and a
+  # theme map from Supabase; manifold writes them. Tracked here, occupies no
+  # portfolio slot: the five slots are full, and displacement is an operator
+  # decision (registry/portfolio.yaml). [GAP] operator: should superlearn
+  # take a slot, and if so, what does it displace?
+  - slug: superlearn
+    name: Superlearn                   # [AI] repo name at github.com/snowfranco/Superlearn
+    aliases: [Superlearn, superlearn, News-Papele, news-papele]
+    status: active                     # [AI] app live against Supabase; manifold shipped 2026-08-05 (agents/manifold/)
+    kind: personal                     # [INFERRED] learning tool for the operator; no commercial line anywhere in the repo
+    repo: https://github.com/snowfranco/Superlearn
+    repo_local: "[GAP]"                # no checkout under ~/Projects on this machine
+    one_line: "Personal learning cockpit: a daily edition and theme map over the reader's own sources, rendered from Supabase and written by manifold."  # [AI] from the repo's src/types.ts contract and README
+    started: "2026-04-28T01:55:05Z"    # [AI] GitHub repo created_at (as News-Papele)
+    keywords: [learning, rss, editions, theme map, supabase, react, vite, zod, manifold, editor agent]
+
 # --- EXAMPLE ROW (not real state) ---
 # projects:
 #   - slug: <project-slug>

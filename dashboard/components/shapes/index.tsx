@@ -9,8 +9,9 @@ import { Klein } from "./Klein";
 import { Cardioid } from "./Cardioid";
 import { Mobius } from "./Mobius";
 import { Parabola } from "./Parabola";
+import { Manifold } from "./Manifold";
 
-export { Sphere, Torus, Prism, Icosa, Helix, Klein, Cardioid, Mobius, Parabola };
+export { Sphere, Torus, Prism, Icosa, Helix, Klein, Cardioid, Mobius, Parabola, Manifold };
 export { SIZE_PX } from "./shape-props";
 export type { ShapeProps, ShapeSize } from "./shape-props";
 
@@ -24,6 +25,7 @@ const SHAPES: Record<AgentSlug, (props: ShapeProps) => React.ReactNode> = {
   cardioid: Cardioid,
   mobius: Mobius,
   parabola: Parabola,
+  manifold: Manifold,
 };
 
 /** Render any agent's shape by slug. The glyph is the byline. */
