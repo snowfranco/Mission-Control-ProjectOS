@@ -1,63 +1,38 @@
-# manifold
+# manifold (ARCHIVED, extracted 2026-08-15)
 
-The Superlearn editor. Reads `reading_items` and `context` from the
-Superlearn Supabase, writes one gated edition plus themes and theme links,
-and routes the reader's outbox back into Mission Control. Behavior contract:
-OVERLAY.md. Values: IDENTITY.md. Contract provenance: src/vendor/superlearn/VENDOR.md.
+manifold no longer lives here. It was extracted into the Superlearn repo,
+where it is now a first-class part of the product: versioned with the app,
+deployed with it, and contract-native to it.
 
-## Setup (once)
+## Where it lives now
 
-    cd agents/manifold
-    npm install
+The Superlearn repo (github.com/snowfranco/Superlearn), directory `manifold/`.
+It runs on GitHub Actions (Node via tsx): the editorial pass Tuesday and Friday
+07:00 America/Toronto (`.github/workflows/manifold-edition.yml`) and the outbox
+sweep hourly (`.github/workflows/manifold-sweep.yml`). Setup, schedules, and
+the disable switches are in that repo's `manifold/README.md`; the reasoning for
+the move and the runtime choice is in its `docs/adr/0001-manifold-runtime.md`.
 
-Secrets: copy `.env.example` to `.env` at the repo root and fill in
-`SUPABASE_SERVICE_ROLE_KEY` (the anon key works as a stopgap while RLS is
-allow-all). Model auth: set `ANTHROPIC_API_KEY`, or leave it unset to use the
-local `claude` CLI. Requires Node 23.6+ (runs TypeScript natively).
+## Why it moved
 
-## Run
+Living inside Mission Control meant Superlearn could not be installed by anyone
+else (the app shipped without its editor), editions only ran when Mission
+Control was up and the local `claude` CLI was authenticated (one of those broke
+and blocked eval re-blessing), and the app contract had to be vendored and
+re-pinned by hand. In the new home manifold imports the app's `src/schemas.ts`
+and `src/types.ts` directly, so drift is impossible, and a fresh clone plus a
+Supabase project plus one Anthropic key produces editions with no other repo
+involved.
 
-    npm run edition        # the editorial pass: writes to Supabase if the gate passes
-    npm run edition:dry    # same pass, gate and report only, no writes
-    npm run outbox         # route queued outbox items (parks, notes, requests)
-    npm run outbox:dry     # preview routing decisions, nothing persisted
+## State of this directory
 
-(npm swallows a bare `--dry-run`; use the `:dry` scripts, or
-`node src/cli.ts <command> --dry-run` directly.)
+Frozen, not deleted. Every source file under `src/` and `evals/` is preserved
+for history and provenance. Both scheduler triggers (`manifold_edition`,
+`manifold_outbox_sweep`) are disabled in `../../schedule/scheduler.yaml` so this
+repo never double-runs the agent against the same Supabase. Do not re-enable
+them: the live agent is the one in the Superlearn repo. The reader state that
+lived in `state/state.json` was migrated into Supabase (`manifold_state`) as
+part of the extraction; nothing here writes to Supabase anymore.
 
-Every editorial run (including dry runs and empty-corpus aborts) writes a
-decision-grade report to `reports/manifold/`. A run that fails the
-deterministic gate writes the report, writes nothing to Supabase, and exits 1.
-The outbox router's record is its stdout log plus the queue lines it appends;
-it writes no report file.
-
-Scheduled runs: `manifold_edition` (Tuesday and Friday 07:00
-America/Toronto) and `manifold_outbox_sweep` (hourly, on the hour) in
-`schedule/scheduler.yaml`, both enabled since 2026-08-12; flip
-`enabled: false` on either to pause it.
-
-## Evals
-
-    npm run evals                        # full: real pass + LLM judge per fixture
-    node evals/runner.ts --skip-judge    # deterministic layer only
-    node evals/runner.ts --fixture hype-but-stale
-    node evals/runner.ts --bless         # re-bless golden floors (deliberate act)
-
-Rubric and thresholds: evals/RUBRIC.md. Fixtures: evals/fixtures/ (format in
-its README). Scores append to evals/results/history.jsonl; golden floors live
-in evals/golden/golden.json. The deterministic subset of the rubric is the
-same code (src/gate.ts) that gates real runs.
-
-## Layout
-
-    src/cli.ts         entry: edition | outbox
-    src/run.ts         attempt loop: prompt, model, build, gate
-    src/prompt.ts      the editorial prompt (versioned here, nowhere else)
-    src/editorial.ts   deterministic build: heat, carry-forward, meta, ids
-    src/gate.ts        the hard write gate (also the evals deterministic layer)
-    src/contract.ts    strict writer schemas + app-contract round-trip
-    src/vendor/        Superlearn types.ts/schemas.ts, pinned (VENDOR.md)
-    src/outbox.ts      Slice B router (apply simple, route the rest)
-    src/queues.ts      queues/decisions.jsonl and queues/handoffs.jsonl writers
-    src/state.ts       agent memory: parks, notes, signals (state/state.json)
-    evals/             rubric, fixtures, runner, judge, golden, results
+A future overseer agent may read Superlearn's outputs, but the brain lives with
+the product now.
